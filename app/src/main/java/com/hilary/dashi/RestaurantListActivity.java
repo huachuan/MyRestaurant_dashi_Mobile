@@ -1,5 +1,6 @@
 package com.hilary.dashi;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
 import android.content.res.Configuration;
@@ -41,9 +42,15 @@ public class RestaurantListActivity extends AppCompatActivity implements
 
 
         if (findViewById(R.id.fragment_container) != null) {
-            listFragment =  new RestaurantListFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, listFragment).commit();
+            Intent intent = getIntent();
+            if (intent.getExtras() != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_list_container, new BackendListFragment()).commit();
+            } else {
+                listFragment = new RestaurantListFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.fragment_container, listFragment).commit();
+            }
         }
 
 
